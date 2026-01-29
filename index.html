@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1周年記念公演　ヒント</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="1周年記念公演ヒント">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <style>
+      /* シンプルなリロードボタンのスタイル */
+      .reload-container {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        z-index: 100;
+      }
+      .reload-button {
+        background: #fff;
+        border: 1px solid #ccc;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        color: #666;
+        padding: 0;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      .reload-button:active {
+        background-color: #eee;
+        transform: rotate(90deg);
+        transition: 0.2s;
+      }
+    </style>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./sw.js');
+        });
+      }
+      function reloadPage() {
+        location.reload(true);
+      }
+    </script>
+</head>
+<body>
+    <div class="container" style="position: relative;">
+        <div id="start-screen">
+            <h1>1周年記念公演</h1>
+            <p>チームメンバー全員の合意を得てから読み進めましょう。</p>
+            <button id="show-hint-button">ヒントを見る</button>
+        </div>
+
+        <div id="hint-content" style="display: none;">
+            <div class="reload-container">
+              <button class="reload-button" onclick="reloadPage()" title="再読み込み">↻</button>
+            </div>
+            <h1>1周年記念公演　ヒント</h1>
+            <div class="hint-time-guidelines">
+                <p class="guideline-heading">ヒント使用時間目安</p>
+                <p>10分経過：一橋殺人事件
+                <br>20分経過：二宮殺人事件
+                <br>55分経過：三ツ星宝石店盗難事件
+                <br>55分経過：三ツ星宝石店盗難事件
+                <br>55分経過：三ツ星宝石店盗難事件
+                <br>55分経過：三ツ星宝石店盗難事件
+                </p>
+            </div>
+            <div class="accordion level-1"><div class="accordion-header"><span class="hint-name">XX</span></div><div class="accordion-content"><div class="hint-body"><p></p></div></div></div>
+<div class="accordion level-1"><div class="accordion-header"><span class="hint-name">XX</span></div><div class="accordion-content"><div class="hint-body"><p></p></div></div></div>
+<div class="accordion level-1"><div class="accordion-header"><span class="hint-name">XX</span></div><div class="accordion-content"><div class="hint-body"><p></p></div></div></div>
+<div class="accordion level-1"><div class="accordion-header"><span class="hint-name">XX</span></div><div class="accordion-content"><div class="hint-body"><p></p></div></div></div>
+<div class="accordion level-1"><div class="accordion-header"><span class="hint-name">XX</span></div><div class="accordion-content"><div class="hint-body"><p></p></div></div></div>
+
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
