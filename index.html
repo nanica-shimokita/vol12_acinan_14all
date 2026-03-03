@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1周年記念公演　ヒント</title>
+    <title>Return from Wonderland　ヒント</title>
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="1周年記念公演ヒント">
+    <meta name="apple-mobile-web-app-title" content="Return from Wonderland ヒント">
     <link rel="apple-touch-icon" href="icon-192.png">
     <style>
       .reload-container { position: absolute; top: 15px; right: 15px; z-index: 100; }
@@ -24,16 +24,19 @@
 
       async function checkAutoUnlock() {
         try {
-          const response = await fetch("./status.json?t=" + Date.now() + "&nc=" + Math.random());
+          // GASのdoGetから直接ステータスを取得（即時反映用）
+          const response = await fetch("https://script.google.com/a/hgms.jp/macros/s/AKfycbxM3y71sCSs43BIFJvElU_R3IB_XGeacmyyePByI5hEy5pce0NPLXGq1xlcQDRmuYIvTQ/exec?t=" + Date.now());
           if (!response.ok) return;
-          const statusMap = await response.json();
-          document.querySelectorAll(".accordion.is-locked").forEach(acc => {
-            const nameSpan = acc.querySelector(".hint-name");
-            if (!nameSpan) return;
-            const cleanName = nameSpan.innerText.trim();
-            if (statusMap[cleanName] === true) {
-              acc.classList.remove("is-locked");
-            }
+          const statusList = await response.json();
+          
+          // 全アコーディオンに対して公開状態を反映
+          statusList.forEach(item => {
+            document.querySelectorAll(".accordion.is-locked").forEach(acc => {
+              const nameSpan = acc.querySelector(".hint-name");
+              if (nameSpan && nameSpan.innerText.trim() === item.name) {
+                if (item.status === true) acc.classList.remove("is-locked");
+              }
+            });
           });
         } catch (e) { console.error("Update check failed", e); }
       }
@@ -43,7 +46,7 @@
 <body>
     <div class="container" style="position: relative;">
         <div id="start-screen">
-            <h1>1周年記念公演</h1>
+            <h1>NANICA 1周年記念公演</h1>
             <p>チームメンバー全員の合意を得てから読み進めましょう。</p>
             <button id="show-hint-button">ヒントを見る</button>
         </div>
@@ -51,7 +54,7 @@
             <div class="reload-container">
               <button class="reload-button" onclick="reloadPage()" title="再読み込み">↻</button>
             </div>
-            <h1>1周年記念公演　ヒント</h1>
+            <h1>NANICA 1周年記念公演　ヒント</h1>
             <div class="hint-time-guidelines">
                 <p class="guideline-heading">ヒントが表示されない場合は右上リロードボタンを押してください</p>
             </div>
@@ -71,12 +74,12 @@
 <div class="accordion inner-accordion level-2"><div class="accordion-header"><span class="hint-name">まとめ謎のヒント</span></div><div class="accordion-content"><div class="hint-body"><p>赤い四角には、「シ」が入ります。</p></div><div class="accordion inner-accordion level-4"><div class="accordion-header"><span class="hint-name">答え</span></div><div class="accordion-content"><div class="hint-body"><p>左から、シロハタ・ライオン・ボンクラ・メカクシを当てはめ、答えは<span class="red-text"><strong>ハイボク</strong></span>です。<br>タブレットにハイボクと入れましょう。</p></div></div></div>
 </div></div>
 </div></div>
-<div class="accordion level-1"><div class="accordion-header"><span class="hint-name">STEP1</span></div><div class="accordion-content"><div class="hint-body"><p>アレックスとサムの行動パターンを把握しましょう。<br>何をどのくらい注文したら2人の行動がどのように変わるのかに着目してみましょう。</p></div><div class="accordion inner-accordion level-2"><div class="accordion-header"><span class="hint-name">鍵を手にいれる方法</span></div><div class="accordion-content"><div class="hint-body"><p>アイスクリームが戸棚に入っています。この戸棚はカウンターにある鍵で開けることができそうです。<strong><br>よってアイスを注文することで鍵を動かすことができます。</strong>しかし、そのままではサムが鍵を持ったままなので、サムが鍵を置く行動パターンを探りましょう。<br>どうにかしてこの鍵を手放すよう仕向けられないでしょうか。</p></div><div class="accordion inner-accordion level-3"><div class="accordion-header"><span class="hint-name">さらにヒント</span></div><div class="accordion-content"><div class="hint-body"><p>おいしい水を2つ以上注文することで、両手で水を受け取りに行きます。<strong>この時に鍵をテーブルに置くようです。<br></strong>次に、テーブルに置かれた鍵をどうしたらボスの牢屋まで届けることができるか考えてみましょう。</p></div></div></div>
+<div class="accordion is-locked level-1"><div class="accordion-header"><span class="hint-name">STEP1</span></div><div class="accordion-content"><div class="hint-body"><p>アレックスとサムの行動パターンを把握しましょう。<br>何をどのくらい注文したら2人の行動がどのように変わるのかに着目してみましょう。</p></div><div class="accordion inner-accordion level-2"><div class="accordion-header"><span class="hint-name">鍵を手にいれる方法</span></div><div class="accordion-content"><div class="hint-body"><p>アイスクリームが戸棚に入っています。この戸棚はカウンターにある鍵で開けることができそうです。<strong><br>よってアイスを注文することで鍵を動かすことができます。</strong>しかし、そのままではサムが鍵を持ったままなので、サムが鍵を置く行動パターンを探りましょう。<br>どうにかしてこの鍵を手放すよう仕向けられないでしょうか。</p></div><div class="accordion inner-accordion level-3"><div class="accordion-header"><span class="hint-name">さらにヒント</span></div><div class="accordion-content"><div class="hint-body"><p>おいしい水を2つ以上注文することで、両手で水を受け取りに行きます。<strong>この時に鍵をテーブルに置くようです。<br></strong>次に、テーブルに置かれた鍵をどうしたらボスの牢屋まで届けることができるか考えてみましょう。</p></div></div></div>
 </div></div>
 <div class="accordion inner-accordion level-2"><div class="accordion-header"><span class="hint-name">鍵をボスのいる牢屋に届ける方法</span></div><div class="accordion-content"><div class="hint-body"><p>フィンガーチキンを注文することで、アレックスが食べたことに怒るようです。<br><strong>その際に机をたたき、上に乗っているものが少し動きます。これを利用しましょう。<br></strong>しかし、いまのままでは、机を叩く力が弱いため、鍵を動かすことはできません。<br>どうしたら机を叩く力が強まるか考えてみましょう。</p></div><div class="accordion inner-accordion level-3"><div class="accordion-header"><span class="hint-name">答え</span></div><div class="accordion-content"><div class="hint-body"><p>ブルドッグを注文することで、アレックスが酔っぱらうようです。<br>その状態でフィンガーチキンを注文し、<span class="red-text"><strong>机を強く叩かせることで、鍵が飛び、ボスのもとまで届きます。</strong></span></p></div></div></div>
 </div></div>
 </div></div>
-<div class="accordion level-1"><div class="accordion-header"><span class="hint-name">STEP2</span></div><div class="accordion-content"><div class="hint-body"><p>箱を溶かすために、<strong>エンジョウ、テクトコル、マイリール、コトバック</strong>を生成する必要があります。<br>それぞれ素材を組みあわせて謎を作り、キーワードを導きましょう。</p></div><div class="accordion inner-accordion level-2"><div class="accordion-header"><span class="hint-name">エンジョウのヒント</span></div><div class="accordion-content"><div class="hint-body"><p>26とは、アルファベットの数を表しているようです。</p></div><div class="accordion inner-accordion level-3"><div class="accordion-header"><span class="hint-name">さらにヒント</span></div><div class="accordion-content"><div class="hint-body"><p>右のイラストは「kick」を表しています。</p></div><div class="accordion inner-accordion level-4"><div class="accordion-header"><span class="hint-name">答え</span></div><div class="accordion-content"><div class="hint-body"><p>答えは<span class="red-text"><strong>part(パート)</strong></span>です。</p></div></div></div>
+<div class="accordion is-locked level-1"><div class="accordion-header"><span class="hint-name">STEP2</span></div><div class="accordion-content"><div class="hint-body"><p>箱を溶かすために、<strong>エンジョウ、テクトコル、マイリール、コトバック</strong>を生成する必要があります。<br>それぞれ素材を組みあわせて謎を作り、キーワードを導きましょう。</p></div><div class="accordion inner-accordion level-2"><div class="accordion-header"><span class="hint-name">エンジョウのヒント</span></div><div class="accordion-content"><div class="hint-body"><p>26とは、アルファベットの数を表しているようです。</p></div><div class="accordion inner-accordion level-3"><div class="accordion-header"><span class="hint-name">さらにヒント</span></div><div class="accordion-content"><div class="hint-body"><p>右のイラストは「kick」を表しています。</p></div><div class="accordion inner-accordion level-4"><div class="accordion-header"><span class="hint-name">答え</span></div><div class="accordion-content"><div class="hint-body"><p>答えは<span class="red-text"><strong>part(パート)</strong></span>です。</p></div></div></div>
 </div></div>
 </div></div>
 <div class="accordion inner-accordion level-2"><div class="accordion-header"><span class="hint-name">テクトコルのヒント</span></div><div class="accordion-content"><div class="hint-body"><p>下のマスには「せんえん」が入るようです。上のマスには何が入るか考えてみましょう。</p></div><div class="accordion inner-accordion level-3"><div class="accordion-header"><span class="hint-name">答え</span></div><div class="accordion-content"><div class="hint-body"><p>上のマスには「いちまい」が入り、答えは<span class="red-text"><strong>ちえん</strong></span>です。</p></div></div></div>
@@ -100,7 +103,7 @@
 </div></div>
 </div></div>
 </div></div>
-<div class="accordion level-1"><div class="accordion-header"><span class="hint-name">STEP3</span></div><div class="accordion-content"><div class="hint-body"><p><span class="red-text"><strong>まずは配置されているロボ4つの動きを止めることを目的としましょう。</strong></span><strong><br></strong>「手錠」のスキルを使うことでロボの追跡を「停止」させることができます。<br>画像の位置まで移動し、一般警備ロボを「手錠」で捕まえましょう。<img src="acinan-kaitoun01.png" alt="ヒント画像" class="hint-image"></p></div><div class="accordion inner-accordion level-2"><div class="accordion-header"><span class="hint-name">4体のロボの動きを止めるためのヒント</span></div><div class="accordion-content"><div class="hint-body"><p>この時点で誰もボタンの上に乗っていないのに緑のボタンが踏まれていることから<span class="red-text"><strong>隠密警備ロボがここにいることがわかります。</strong></span></p></div><div class="accordion inner-accordion level-3"><div class="accordion-header"><span class="hint-name">さらにヒント</span></div><div class="accordion-content"><div class="hint-body"><p>画像の位置まで移動し、隠密警備ロボを「手錠」で捕まえましょう。<img src="acinan-kaitoun02.png" alt="ヒント画像" class="hint-image"></p></div><div class="accordion inner-accordion level-4"><div class="accordion-header"><span class="hint-name">さらにヒント</span></div><div class="accordion-content"><div class="hint-body"><p>画像の位置まで移動し、2体目の一般警備ロボを「手錠」で捕まえましょう。<img src="acinan-kaitoun03.png" alt="ヒント画像" class="hint-image"></p></div><div class="accordion inner-accordion level-5"><div class="accordion-header"><span class="hint-name">さらにヒント</span></div><div class="accordion-content"><div class="hint-body"><p>ボタン警備ロボをおびき出し、「手錠」で捕まえ、「警棒」でボタンを機能停止するスキルを消しましょう。<img src="acinan-kaitoun04.png" alt="ヒント画像" class="hint-image"></p></div></div></div>
+<div class="accordion is-locked level-1"><div class="accordion-header"><span class="hint-name">STEP3</span></div><div class="accordion-content"><div class="hint-body"><p><span class="red-text"><strong>まずは配置されているロボ4つの動きを止めることを目的としましょう。</strong></span><strong><br></strong>「手錠」のスキルを使うことでロボの追跡を「停止」させることができます。<br>画像の位置まで移動し、一般警備ロボを「手錠」で捕まえましょう。<img src="acinan-kaitoun01.png" alt="ヒント画像" class="hint-image"></p></div><div class="accordion inner-accordion level-2"><div class="accordion-header"><span class="hint-name">4体のロボの動きを止めるためのヒント</span></div><div class="accordion-content"><div class="hint-body"><p>この時点で誰もボタンの上に乗っていないのに緑のボタンが踏まれていることから<span class="red-text"><strong>隠密警備ロボがここにいることがわかります。</strong></span></p></div><div class="accordion inner-accordion level-3"><div class="accordion-header"><span class="hint-name">さらにヒント</span></div><div class="accordion-content"><div class="hint-body"><p>画像の位置まで移動し、隠密警備ロボを「手錠」で捕まえましょう。<img src="acinan-kaitoun02.png" alt="ヒント画像" class="hint-image"></p></div><div class="accordion inner-accordion level-4"><div class="accordion-header"><span class="hint-name">さらにヒント</span></div><div class="accordion-content"><div class="hint-body"><p>画像の位置まで移動し、2体目の一般警備ロボを「手錠」で捕まえましょう。<img src="acinan-kaitoun03.png" alt="ヒント画像" class="hint-image"></p></div><div class="accordion inner-accordion level-5"><div class="accordion-header"><span class="hint-name">さらにヒント</span></div><div class="accordion-content"><div class="hint-body"><p>ボタン警備ロボをおびき出し、「手錠」で捕まえ、「警棒」でボタンを機能停止するスキルを消しましょう。<img src="acinan-kaitoun04.png" alt="ヒント画像" class="hint-image"></p></div></div></div>
 </div></div>
 </div></div>
 </div></div>
@@ -109,14 +112,14 @@
 </div></div>
 </div></div>
 </div></div>
-<div class="accordion level-1"><div class="accordion-header"><span class="hint-name">STEP4</span></div><div class="accordion-content"><div class="hint-body"><p>金色のものを色々盗み、何がどう動くのか、それぞれの動きを確認しましょう。</p></div><div class="accordion inner-accordion level-2"><div class="accordion-header"><span class="hint-name">鍵を手に入れる方法</span></div><div class="accordion-content"><div class="hint-body"><p>例えば、鳥かごを盗んだ場合、中にいる鳥は盗まれず、飛んでいくようです。<br>ろうそくの火がロープに燃え移れば、金色のペンキが上から落ちてきて、鍵を金色にすることができそうです。<br>ロープに火をつける方法を考えましょう。</p></div><div class="accordion inner-accordion level-3"><div class="accordion-header"><span class="hint-name">さらにヒント</span></div><div class="accordion-content"><div class="hint-body"><p>うさぎを消すことで、シーソーを傾けることができそうですが、そのためには重さが足りません。<br>反対側に何かを乗せることはできないでしょうか。</p></div><div class="accordion inner-accordion level-4"><div class="accordion-header"><span class="hint-name">さらにヒント</span></div><div class="accordion-content"><div class="hint-body"><p>鳥かごを消すと、鳥は「麦が落ちているところ」へ飛んでいきます。<br>麦がシーソーの左側に落ちていれば、鳥が止まってくれそうです。<br>麦の下の金色の台を消し、麦が下に落ちた状態で、鳥かごを消してみましょう。<br>うさぎが消えていれば、シーソーが傾くはずです。</p></div><div class="accordion inner-accordion level-5"><div class="accordion-header"><span class="hint-name">さらにヒント</span></div><div class="accordion-content"><div class="hint-body"><p>シーソーが傾き、火が付きましたが、肝心のカギが階下に落ちてしまいました。<br>この状況から、鍵を使わずにアリスを牢屋から出す方法を考えましょう。</p></div></div></div>
+<div class="accordion is-locked level-1"><div class="accordion-header"><span class="hint-name">STEP4</span></div><div class="accordion-content"><div class="hint-body"><p>金色のものを色々盗み、何がどう動くのか、それぞれの動きを確認しましょう。</p></div><div class="accordion inner-accordion level-2"><div class="accordion-header"><span class="hint-name">鍵を手に入れる方法</span></div><div class="accordion-content"><div class="hint-body"><p>例えば、鳥かごを盗んだ場合、中にいる鳥は盗まれず、飛んでいくようです。<br>ろうそくの火がロープに燃え移れば、金色のペンキが上から落ちてきて、鍵を金色にすることができそうです。<br>ロープに火をつける方法を考えましょう。</p></div><div class="accordion inner-accordion level-3"><div class="accordion-header"><span class="hint-name">さらにヒント</span></div><div class="accordion-content"><div class="hint-body"><p>うさぎを消すことで、シーソーを傾けることができそうですが、そのためには重さが足りません。<br>反対側に何かを乗せることはできないでしょうか。</p></div><div class="accordion inner-accordion level-4"><div class="accordion-header"><span class="hint-name">さらにヒント</span></div><div class="accordion-content"><div class="hint-body"><p>鳥かごを消すと、鳥は「麦が落ちているところ」へ飛んでいきます。<br>麦がシーソーの左側に落ちていれば、鳥が止まってくれそうです。<br>麦の下の金色の台を消し、麦が下に落ちた状態で、鳥かごを消してみましょう。<br>うさぎが消えていれば、シーソーが傾くはずです。</p></div><div class="accordion inner-accordion level-5"><div class="accordion-header"><span class="hint-name">さらにヒント</span></div><div class="accordion-content"><div class="hint-body"><p>シーソーが傾き、火が付きましたが、肝心のカギが階下に落ちてしまいました。<br>この状況から、鍵を使わずにアリスを牢屋から出す方法を考えましょう。</p></div></div></div>
 </div></div>
 </div></div>
 </div></div>
 <div class="accordion inner-accordion level-2"><div class="accordion-header"><span class="hint-name">アリスを牢屋から救う方法</span></div><div class="accordion-content"><div class="hint-body"><p>金色になった床はアリスの牢屋にまで繋がっています。</p></div><div class="accordion inner-accordion level-9"><div class="accordion-header"><span class="hint-name">答え</span></div><div class="accordion-content"><div class="hint-body"><p>金色になった床を消すことで、アリスが階下に落ち、牢屋から救出することができます。</p></div></div></div>
 </div></div>
 </div></div>
-<div class="accordion level-1"><div class="accordion-header"><span class="hint-name">STEP5</span></div><div class="accordion-content"><div class="hint-body"><p></p></div><div class="accordion inner-accordion level-2"><div class="accordion-header"><span class="hint-name">かいとうはくだものです
+<div class="accordion is-locked level-1"><div class="accordion-header"><span class="hint-name">STEP5</span></div><div class="accordion-content"><div class="hint-body"><p></p></div><div class="accordion inner-accordion level-2"><div class="accordion-header"><span class="hint-name">かいとうはくだものです
 の謎</span></div><div class="accordion-content"><div class="hint-body"><p>例示のイラストは「いも」と「はくい」です。<br>これらの文字は、全て問題文に含まれています。<br>まずはこの謎全体が、どのような謎かを考えましょう。</p></div><div class="accordion inner-accordion level-3"><div class="accordion-header"><span class="hint-name">さらにヒント</span></div><div class="accordion-content"><div class="hint-body"><p>この謎は、問題文の数字番目の文字を拾う、という謎のようです。<br>2,7文字目が「いも」、5,6,2文字目が「はくい」になるように、問題文の文字を消しましょう。</p></div><div class="accordion inner-accordion level-4"><div class="accordion-header"><span class="hint-name">答え</span></div><div class="accordion-content"><div class="hint-body"><p><span class="red-text"><strong>7文字目の「だ」を消す</strong></span>ことで、例示が成立します。<br>この状態で10,1,3文字目を拾って読むことで、答えは「スカート」です。</p></div></div></div>
 </div></div>
 </div></div>
@@ -136,11 +139,11 @@
 </div></div>
 </div></div>
 </div></div>
-<div class="accordion level-1"><div class="accordion-header"><span class="hint-name">STEP6</span></div><div class="accordion-content"><div class="hint-body"><p>最後の1本のビンは、早すぎて正攻法で打ち抜くことはできなさそうです。<br>何か別の方法を考えてみましょう。</p></div><div class="accordion inner-accordion level-2"><div class="accordion-header"><span class="hint-name">さらにヒント</span></div><div class="accordion-content"><div class="hint-body"><p>カウンターに「0」と表示させることができれば、マスターは解放されるようです。</p></div><div class="accordion inner-accordion level-3"><div class="accordion-header"><span class="hint-name">さらにヒント</span></div><div class="accordion-content"><div class="hint-body"><p>「0」の表記は非常に特徴的で、銃の弾痕も黒い丸のようです。</p></div><div class="accordion inner-accordion level-4"><div class="accordion-header"><span class="hint-name">答え</span></div><div class="accordion-content"><div class="hint-body"><p>本数カウンターに銃を撃ち、弾痕で0を作りましょう。</p></div></div></div>
+<div class="accordion is-locked level-1"><div class="accordion-header"><span class="hint-name">STEP6</span></div><div class="accordion-content"><div class="hint-body"><p>最後の1本のビンは、早すぎて正攻法で打ち抜くことはできなさそうです。<br>何か別の方法を考えてみましょう。</p></div><div class="accordion inner-accordion level-2"><div class="accordion-header"><span class="hint-name">さらにヒント</span></div><div class="accordion-content"><div class="hint-body"><p>カウンターに「0」と表示させることができれば、マスターは解放されるようです。</p></div><div class="accordion inner-accordion level-3"><div class="accordion-header"><span class="hint-name">さらにヒント</span></div><div class="accordion-content"><div class="hint-body"><p>「0」の表記は非常に特徴的で、銃の弾痕も黒い丸のようです。</p></div><div class="accordion inner-accordion level-4"><div class="accordion-header"><span class="hint-name">答え</span></div><div class="accordion-content"><div class="hint-body"><p>本数カウンターに銃を撃ち、弾痕で0を作りましょう。</p></div></div></div>
 </div></div>
 </div></div>
 </div></div>
-<div class="accordion level-1"><div class="accordion-header"><span class="hint-name">STEP7</span></div><div class="accordion-content"><div class="hint-body"><p></p></div><div class="accordion inner-accordion level-2"><div class="accordion-header"><span class="hint-name">謎1</span></div><div class="accordion-content"><div class="hint-body"><p>まずは見えている「e」を手がかりに、埋められそうな色を考えましょう。<br>横の5文字には、「green」が埋まります。</p></div><div class="accordion inner-accordion level-3"><div class="accordion-header"><span class="hint-name">さらにヒント</span></div><div class="accordion-content"><div class="hint-body"><p>「green」「blue」「red」と埋めることで、答えは「bed」となりそうです。<br>くだものがこの3色になるように、色を入れ替えていきましょう。</p></div><div class="accordion inner-accordion level-4"><div class="accordion-header"><span class="hint-name">答え</span></div><div class="accordion-content"><div class="hint-body"><p>「はさみ」と「レモン」の色を入れ替えることで、謎を成立させることができます。<br>答えは「bed」です。</p></div></div></div>
+<div class="accordion is-locked level-1"><div class="accordion-header"><span class="hint-name">STEP7</span></div><div class="accordion-content"><div class="hint-body"><p></p></div><div class="accordion inner-accordion level-2"><div class="accordion-header"><span class="hint-name">謎1</span></div><div class="accordion-content"><div class="hint-body"><p>まずは見えている「e」を手がかりに、埋められそうな色を考えましょう。<br>横の5文字には、「green」が埋まります。</p></div><div class="accordion inner-accordion level-3"><div class="accordion-header"><span class="hint-name">さらにヒント</span></div><div class="accordion-content"><div class="hint-body"><p>「green」「blue」「red」と埋めることで、答えは「bed」となりそうです。<br>くだものがこの3色になるように、色を入れ替えていきましょう。</p></div><div class="accordion inner-accordion level-4"><div class="accordion-header"><span class="hint-name">答え</span></div><div class="accordion-content"><div class="hint-body"><p>「はさみ」と「レモン」の色を入れ替えることで、謎を成立させることができます。<br>答えは「bed」です。</p></div></div></div>
 </div></div>
 </div></div>
 <div class="accordion inner-accordion level-2"><div class="accordion-header"><span class="hint-name">謎2</span></div><div class="accordion-content"><div class="hint-body"><p>例の矢印の先は「リング」を表しています。<br>矢印が通る3文字が「リング」になるような言葉を考えてみましょう。</p></div><div class="accordion inner-accordion level-3"><div class="accordion-header"><span class="hint-name">さらにヒント</span></div><div class="accordion-content"><div class="hint-body"><p>「英」「和」と書かれていることから、下には「グリーン」、上には「みどり」が当てはまりそうだと考えられます。<br>この謎が成立するように、ドーナツの色を変えていきましょう。</p></div><div class="accordion inner-accordion level-4"><div class="accordion-header"><span class="hint-name">答え</span></div><div class="accordion-content"><div class="hint-body"><p>「ライム」と「ドーナツ」の色を入れ替えることで、ドーナツが緑色になり謎が成立します。<br>答えは「ドリーム」です。</p></div></div></div>
@@ -161,7 +164,7 @@
 </div></div>
 </div></div>
 </div></div>
-<div class="accordion level-1"><div class="accordion-header"><span class="hint-name">STEP8</span></div><div class="accordion-content"><div class="hint-body"><p></p></div><div class="accordion inner-accordion level-2"><div class="accordion-header"><span class="hint-name">ジミノロガキのヒント</span></div><div class="accordion-content"><div class="hint-body"><p>「しゅとう」が「うし」に、「ぎゃく」が「くぎ」になっています。<br>矢印の法則を考えましょう。</p></div><div class="accordion inner-accordion level-3"><div class="accordion-header"><span class="hint-name">答え</span></div><div class="accordion-content"><div class="hint-body"><p>「最後の文字と最初の文字を読む」という法則になっています。<br>答えは「ごじ」です。</p></div></div></div>
+<div class="accordion is-locked level-1"><div class="accordion-header"><span class="hint-name">STEP8</span></div><div class="accordion-content"><div class="hint-body"><p></p></div><div class="accordion inner-accordion level-2"><div class="accordion-header"><span class="hint-name">ジミノロガキのヒント</span></div><div class="accordion-content"><div class="hint-body"><p>「しゅとう」が「うし」に、「ぎゃく」が「くぎ」になっています。<br>矢印の法則を考えましょう。</p></div><div class="accordion inner-accordion level-3"><div class="accordion-header"><span class="hint-name">答え</span></div><div class="accordion-content"><div class="hint-body"><p>「最後の文字と最初の文字を読む」という法則になっています。<br>答えは「ごじ」です。</p></div></div></div>
 </div></div>
 <div class="accordion inner-accordion level-2"><div class="accordion-header"><span class="hint-name">スミノライトのヒント</span></div><div class="accordion-content"><div class="hint-body"><p>「せ434」が「せいかい」とあるので、「4=い」「3=か」と考えられます。<br>書かれたイラストから、数字と文字を対応させる法則を考えましょう。</p></div><div class="accordion inner-accordion level-3"><div class="accordion-header"><span class="hint-name">答え</span></div><div class="accordion-content"><div class="hint-body"><p>数字は、イラストをひらがなにしたときに現れる文字の数を表していました。<br>1つしか現れない文字は「さ」、2つ現れる文字は「み」なので、3文字の答えは「はさみ」となります。</p></div></div></div>
 </div></div>
@@ -183,7 +186,7 @@
 </div></div>
 </div></div>
 </div></div>
-<div class="accordion level-1"><div class="accordion-header"><span class="hint-name">STEP9</span></div><div class="accordion-content"><div class="hint-body"><p>まずは安全地帯の場所を見つけましょう。<br>MAPをよく見ることが重要です。</p></div><div class="accordion inner-accordion level-2"><div class="accordion-header"><span class="hint-name">1ターン目</span></div><div class="accordion-content"><div class="hint-body"><p>安全地帯は2箇所あります。どちらかに移動して決定を押しましょう。</p></div><div class="accordion inner-accordion level-3"><div class="accordion-header"><span class="hint-name">答え</span></div><div class="accordion-content"><div class="hint-body"><p>画像の丸位置に移動して決定を押しましょう。<img src="acinan-haru01.png" alt="ヒント画像" class="hint-image"></p></div></div></div>
+<div class="accordion is-locked level-1"><div class="accordion-header"><span class="hint-name">STEP9</span></div><div class="accordion-content"><div class="hint-body"><p>まずは安全地帯の場所を見つけましょう。<br>MAPをよく見ることが重要です。</p></div><div class="accordion inner-accordion level-2"><div class="accordion-header"><span class="hint-name">1ターン目</span></div><div class="accordion-content"><div class="hint-body"><p>安全地帯は2箇所あります。どちらかに移動して決定を押しましょう。</p></div><div class="accordion inner-accordion level-3"><div class="accordion-header"><span class="hint-name">答え</span></div><div class="accordion-content"><div class="hint-body"><p>画像の丸位置に移動して決定を押しましょう。<img src="acinan-haru01.png" alt="ヒント画像" class="hint-image"></p></div></div></div>
 </div></div>
 <div class="accordion inner-accordion level-2"><div class="accordion-header"><span class="hint-name">2ターン目</span></div><div class="accordion-content"><div class="hint-body"><p>まずはお酒のマスに行き、お酒を拾いましょう。<br>その後、安全地帯に移動して決定を押しましょう。</p></div><div class="accordion inner-accordion level-3"><div class="accordion-header"><span class="hint-name">コウゲキされない場所の答え</span></div><div class="accordion-content"><div class="hint-body"><p>画像の丸位置に移動して決定を押しましょう。<img src="acinan-haru02.png" alt="ヒント画像" class="hint-image"></p></div></div></div>
 </div></div>
@@ -192,7 +195,7 @@
 </div></div>
 </div></div>
 </div></div>
-<div class="accordion level-1"><div class="accordion-header"><span class="hint-name">STEP10</span></div><div class="accordion-content"><div class="hint-body"><p>画面上の赤四角をタップ拡大して、謎を表示し、破壊すべき場所を特定しましょう。<br>破壊すべき場所を5回タップすることではるにその情報が伝わり、はるが破壊してくれます。</p></div><div class="accordion inner-accordion level-2"><div class="accordion-header"><span class="hint-name">第一の部屋</span></div><div class="accordion-content"><div class="hint-body"><p>タウンがダウンに変化しています。<strong>どのような法則が成り立っているか考えてみましょう。</strong></p></div><div class="accordion inner-accordion level-3"><div class="accordion-header"><span class="hint-name">さらにヒント</span></div><div class="accordion-content"><div class="hint-body"><p>タウンがダウンに、金が銀に変化していますので、1文字目が濁点に変化する法則があるようです。<strong>キューブの中から1文字目を濁点に変化させたとき、別の単語になる組み合わせを2つ見つけ出しましょう。</strong></p></div><div class="accordion inner-accordion level-4"><div class="accordion-header"><span class="hint-name">さらにヒント</span></div><div class="accordion-content"><div class="hint-body"><p><strong>「さいほう」と「ざいほう」、「ヒール」と「ビール」</strong>がこの法則に当てはまります。<br>それぞれ、キューブを歪んだ四角に配置し、キューブを裏返して読みましょう。</p></div><div class="accordion inner-accordion level-5"><div class="accordion-header"><span class="hint-name">答え</span></div><div class="accordion-content"><div class="hint-body"><p>丸数字の順にイラストを読むと<strong>「はきものはかいしろ」</strong>となります。画面上の<span class="red-text"><strong>はきもの（履き物）を5回タップ</strong></span>して破壊しましょう。</p></div></div></div>
+<div class="accordion is-locked level-1"><div class="accordion-header"><span class="hint-name">STEP10</span></div><div class="accordion-content"><div class="hint-body"><p>画面上の赤四角をタップ拡大して、謎を表示し、破壊すべき場所を特定しましょう。<br>破壊すべき場所を5回タップすることではるにその情報が伝わり、はるが破壊してくれます。</p></div><div class="accordion inner-accordion level-2"><div class="accordion-header"><span class="hint-name">第一の部屋</span></div><div class="accordion-content"><div class="hint-body"><p>タウンがダウンに変化しています。<strong>どのような法則が成り立っているか考えてみましょう。</strong></p></div><div class="accordion inner-accordion level-3"><div class="accordion-header"><span class="hint-name">さらにヒント</span></div><div class="accordion-content"><div class="hint-body"><p>タウンがダウンに、金が銀に変化していますので、1文字目が濁点に変化する法則があるようです。<strong>キューブの中から1文字目を濁点に変化させたとき、別の単語になる組み合わせを2つ見つけ出しましょう。</strong></p></div><div class="accordion inner-accordion level-4"><div class="accordion-header"><span class="hint-name">さらにヒント</span></div><div class="accordion-content"><div class="hint-body"><p><strong>「さいほう」と「ざいほう」、「ヒール」と「ビール」</strong>がこの法則に当てはまります。<br>それぞれ、キューブを歪んだ四角に配置し、キューブを裏返して読みましょう。</p></div><div class="accordion inner-accordion level-5"><div class="accordion-header"><span class="hint-name">答え</span></div><div class="accordion-content"><div class="hint-body"><p>丸数字の順にイラストを読むと<strong>「はきものはかいしろ」</strong>となります。画面上の<span class="red-text"><strong>はきもの（履き物）を5回タップ</strong></span>して破壊しましょう。</p></div></div></div>
 </div></div>
 </div></div>
 </div></div>
