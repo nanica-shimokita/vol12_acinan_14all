@@ -25,7 +25,7 @@
       async function checkAutoUnlock() {
         try {
           // GASのdoGetから直接ステータスを取得（即時反映用）
-          const response = await fetch("https://script.google.com/a/hgms.jp/macros/s/AKfycbxM3y71sCSs43BIFJvElU_R3IB_XGeacmyyePByI5hEy5pce0NPLXGq1xlcQDRmuYIvTQ/exec?t=" + Date.now());
+          const response = await fetch("https://script.google.com/a/hgms.jp/macros/s/AKfycbw4_4uBzqW3ypwAzVqqcmcPgRzJYVFojBE30EL7xU6W/dev?t=" + Date.now());
           if (!response.ok) return;
           const statusList = await response.json();
           
@@ -136,6 +136,9 @@
 </div></div>
 </div></div>
 <div class="accordion inner-accordion level-2"><div class="accordion-header"><span class="hint-name">箱の謎</span></div><div class="accordion-content"><div class="hint-body"><p>2色の箱は、それぞれ別の法則で文字を変換しています。<br>まずは黄色の箱から考えましょう。<br>一番上の「ウマ」は、消す必要はありません。</p></div><div class="accordion inner-accordion level-3"><div class="accordion-header"><span class="hint-name">さらにヒント</span></div><div class="accordion-content"><div class="hint-body"><p>黄色の箱は、「十二支で一つ進める」という法則です。<br>続いて、青の箱の法則も考えましょう。<br>三段目の「そと」は、消す必要はありません。</p></div><div class="accordion inner-accordion level-4"><div class="accordion-header"><span class="hint-name">答え</span></div><div class="accordion-content"><div class="hint-body"><p>青の箱は、「五十音順で一文字進める」という法則です。<br>これら二つの法則を組み合わせると、最後の「てら」は<br>「てら」→「とり」→「いぬ」<br>と変換されます。<br>よって答えは「いぬ」です。</p></div></div></div>
+</div></div>
+</div></div>
+<div class="accordion inner-accordion level-2"><div class="accordion-header"><span class="hint-name">コタエハサンモジの謎</span></div><div class="accordion-content"><div class="hint-body"><p>「コタエハサンモジ」という文章は黒色であることから、消すことができない、つまり、答えは必ず3文字になるということです。<br>問題文と文字が並んでいる場所を見比べて、どんな文章になれば謎が成立するのか考えてみましょう。</p></div><div class="accordion inner-accordion level-3"><div class="accordion-header"><span class="hint-name">さらにヒント</span></div><div class="accordion-content"><div class="hint-body"><p>赤字を消して出来上がる文章の候補が多いため、選択肢からどんな答えになり得るかを推測してみましょう。</p></div><div class="accordion inner-accordion level-4"><div class="accordion-header"><span class="hint-name">答え</span></div><div class="accordion-content"><div class="hint-body"><p>「かこう＝加工」が問題の中にあります。これだけを読むような指示文にしましょう。<br>「カンジヨメ」にすることで、問題の中にある漢字だけを読む謎になります。<br>よって答えは「かこう」です。</p></div></div></div>
 </div></div>
 </div></div>
 <div class="accordion inner-accordion level-2"><div class="accordion-header"><span class="hint-name">カメラの謎</span></div><div class="accordion-content"><div class="hint-body"><p>「間を読もう。」という指示文は黒字であるため、消すことができません。つまり、この指示は必ず残ります。<br>その指示の通り、右の法則を成立させましょう。<br>カメラの間は「カメ」と「ラ」の間を読みます。</p></div><div class="accordion inner-accordion level-3"><div class="accordion-header"><span class="hint-name">さらにヒント</span></div><div class="accordion-content"><div class="hint-body"><p>マルゲリータ、ハナラビのそれぞれの赤字をいくつか消して、謎を成立させましょう。</p></div><div class="accordion inner-accordion level-4"><div class="accordion-header"><span class="hint-name">答え</span></div><div class="accordion-content"><div class="hint-body"><p>問題文の「。」をマルとして扱うことができます。<br>よって、<span class="red-text"><strong>カメラ⇨マス、マルタ⇨ラン、ハナビ⇨クマにすることで謎が成立します。</strong></span></p></div></div></div>
