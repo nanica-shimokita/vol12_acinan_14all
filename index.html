@@ -25,7 +25,7 @@
       async function checkAutoUnlock() {
         try {
           // GASのdoGetから直接ステータスを取得（即時反映用）
-          const response = await fetch("https://script.google.com/a/hgms.jp/macros/s/AKfycbw4_4uBzqW3ypwAzVqqcmcPgRzJYVFojBE30EL7xU6W/dev?t=" + Date.now());
+          const response = await fetch("https://script.google.com/a/hgms.jp/macros/s/AKfycbxM3y71sCSs43BIFJvElU_R3IB_XGeacmyyePByI5hEy5pce0NPLXGq1xlcQDRmuYIvTQ/exec?t=" + Date.now());
           if (!response.ok) return;
           const statusList = await response.json();
           
